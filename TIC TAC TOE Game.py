@@ -29,7 +29,6 @@ winner = None
  # Who's turn is it
 current_player = "X"
 
-
 # Displays game board
 def display_board():
     print("\n")
@@ -37,6 +36,7 @@ def display_board():
     print(board[3] + " | " + board[4] + " | " + board[5] + "   4 | 5 | 6")
     print(board[6] + " | " + board[7] + " | " + board[8] + "   7 | 8 | 9")
     print("\n")
+
 # Plays game of tic-tac-toe
 def play_game():
 
@@ -61,26 +61,24 @@ def play_game():
     elif winner == None:
         print("Tie LOSERS.")
 
+
 # Handle a single turn of a player
 def handle_turn(player):
 
     print(player + "'s turn.")
     position = input("Choose a position from 1-9: ")
 
-    #valid = False
-    #while not valid:
+    valid = False
+    while not valid:
+        while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+            position = input("Choose a position from 1-9: ")
 
-        #while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-           # position = input("Choose a position from 1-9: ")
+        position = int(position) - 1
 
-    position = int(position) - 1
-
-    #if board[position] == "-":
-        #valid = True
-    #selse:
-       # print("You can't go there, try again.")
-
-    
+        if board[position] == "-":
+            valid = True
+        else:
+            print("You can't go there, try again.")
 
     board[position] = player
     
@@ -113,7 +111,7 @@ def check_for_winner():
         # There was a winner
     else:
         winner = None
-    return
+    
 
 def check_rows():
     # Set up gloabl variable
@@ -173,12 +171,14 @@ def check_if_tie():
     global game_still_going
     if "-" not in board:
         game_still_going = False
-    return
+        return True
+    else:
+        return False
 
 def flip_player():
     # Global variable we need
     global current_player
-    # If cureent player is X, it changes to O and vice-versa
+    # If current player is X, it changes to O and vice-versa
     if current_player == "X": # == double checks if current_player is equal to X
         current_player = "O"  # = single makes current_player = O
     elif current_player == "O":
